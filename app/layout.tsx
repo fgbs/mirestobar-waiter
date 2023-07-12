@@ -1,3 +1,6 @@
+import { cn } from "@/lib/utils"
+import { ThemeProvider } from "@/components/theme-provider"
+
 import './globals.css'
 
 export const metadata = {
@@ -11,11 +14,17 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
-      <body>
-        <main className="min-h-screen bg-background flex flex-col items-center">
-          {children}
-        </main>
+    <html lang="en" suppressHydrationWarning>
+        <body
+          className={cn(
+            "min-h-screen bg-background font-sans antialiased"
+          )}
+        >
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <div className="relative flex min-h-screen flex-col">
+            <div className="flex-1">{children}</div>
+          </div>
+        </ThemeProvider>
       </body>
     </html>
   )
