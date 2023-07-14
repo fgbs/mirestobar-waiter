@@ -24,7 +24,7 @@ import { Search } from "@/components/search"
 import { UserNav } from "@/components/user-nav"
 import { CalendarDateRangePicker } from "@/components/date-range-picker"
 
-import { ModeToggle } from '@/components/theme-toggle'
+import { ModeToggle } from '@/components/mode-toggle'
 
 
 export default async function Index() {
