@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/card"
 import { OrderSheet } from './table-card-order-sheet'
 import { ChatSheet } from "./table-card-chat-sheet"
+import { StateBadge } from "./table-state-badge"
 
 
 export function TableCard({ table }) {
@@ -47,9 +48,7 @@ export function TableCard({ table }) {
           <CardTitle>{ table.name }</CardTitle>
           <CardDescription>capacity { table.capacity } seats.</CardDescription>
         </div>
-        <div className="flex ml-auto items-center space-x-1">
-          <Badge variant="outline">{ table.state }</Badge>
-        </div>
+        <StateBadge state={ table.state } />
       </CardHeader>
       <CardContent className="grid gap-1">
         {
