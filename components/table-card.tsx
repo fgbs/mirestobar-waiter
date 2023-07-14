@@ -1,7 +1,11 @@
-import { BellRing, Check } from "lucide-react"
+'use client'
 
-import { cn } from "@/lib/utils"
+import { Check, FileText } from "lucide-react"
+import { useCallback, useEffect, useState } from 'react'
+import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
+
 import { Button } from "@/components/ui/button"
+import { Badge } from "@/components/ui/badge"
 import {
   Card,
   CardContent,
@@ -10,46 +14,60 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
-
-const notifications = [
-  {
-    title: "Your call has been confirmed.",
-    description: "1 hour ago",
-  },
-  {
-    title: "You have a new message!",
-    description: "1 hour ago",
-  },
-  {
-    title: "Your subscription is expiring soon!",
-    description: "2 hours ago",
-  },
-]
+import { OrderSheet } from './table-card-order-sheet'
+import { ChatSheet } from "./table-card-chat-sheet"
 
 
 export function TableCard({ table }) {
+  const [order, setOrder] = useState({})
+
+  const supabase = createClientComponentClient()
+
+  const getData = useCallback(async () => {
+    await supabase
+      .from('order')
+      .select(`id, state`)
+      .match({ table_id: table.id })
+      .maybeSingle()
+      .then(resp => {
+        const { data } = resp
+        setOrder(data)
+      })
+
+  }, [table])
+
+  useEffect(() => {
+    getData()
+  }, [supabase])
+
   return (
     <Card>
-      <CardHeader>
-        <CardTitle>{ table.name }</CardTitle>
-        <CardDescription>You have 3 unread messages.</CardDescription>
+      <CardHeader className="grid grid-cols-[1fr_110px] items-start gap-4 space-y-0">
+        <div className="space-y-1">
+          <CardTitle>{ table.name }</CardTitle>
+          <CardDescription>capacity { table.capacity } seats.</CardDescription>
+        </div>
+        <div className="flex ml-auto items-center space-x-1">
+          <Badge variant="outline">{ table.state }</Badge>
+        </div>
       </CardHeader>
-      <CardContent className="grid gap-4">
-        <div>
-          {notifications.map((notification, index) => (
-            <div key={index} className="grid grid-cols-[25px_1fr] items-start pb-4 last:mb-0 last:pb-0">
-              <span className="flex h-2 w-2 translate-y-1 rounded-full bg-sky-500" />
+      <CardContent className="grid gap-1">
+        {
+          order && Object.keys(order).length > 0 ? (
+            <OrderSheet order={ order } />
+          ) : (
+            <div className="-mx-2 flex items-start space-x-4 rounded-md p-2 transition-all hover:bg-accent hover:text-accent-foreground">
+              <FileText className="mt-px h-5 w-5" />
               <div className="space-y-1">
-                <p className="text-sm font-medium leading-none">
-                  {notification.title}
-                </p>
-                <p className="text-sm text-muted-foreground">
-                  {notification.description}
-                </p>
+                <p className="text-sm font-medium leading-none">Order</p>
+                <p className="text-sm text-muted-foreground">None</p>
               </div>
             </div>
-          ))}
-        </div>
+          )
+        }
+        {
+          table && <ChatSheet table={ table } />
+        }
       </CardContent>
       <CardFooter>
         <Button className="w-full">
