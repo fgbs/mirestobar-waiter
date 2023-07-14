@@ -2,9 +2,8 @@ import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
 
-import { Button } from "@/components/ui/button"
 import { Header } from '@/components/header'
-import { TableCard } from "@/components/table-card"
+import { TableCard } from "./components/table-card"
 
 
 export default async function Index() {

@@ -88,7 +88,9 @@ export function ChatSheet({ table }) {
               <div className="write bg-white shadow flex rounded-lg">
                 <div className="flex-3 flex content-center items-center text-center p-4 pr-0">
                   <span className="block text-center text-gray-400 hover:text-gray-800">
-                    <svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" className="h-6 w-6"><path d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    <svg fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" stroke="currentColor" viewBox="0 0 24 24" className="h-6 w-6">
+                      <path d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
                   </span>
                 </div>
                 <div className="flex-1">
@@ -98,7 +100,9 @@ export function ChatSheet({ table }) {
                   <div className="flex-1">
                     <button className="bg-blue-400 w-10 h-10 rounded-full inline-block">
                       <span className="inline-block align-text-bottom">
-                        <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" className="w-4 h-4 text-white"><path d="M5 13l4 4L19 7"></path></svg>
+                        <svg fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" className="w-4 h-4 text-white">
+                          <path d="M5 13l4 4L19 7"></path>
+                        </svg>
                       </span>
                     </button>
                   </div>
