@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { FileText } from "lucide-react"
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 
@@ -12,7 +12,6 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet"
-import { Separator } from '@/components/ui/separator'
 
 
 export function OrderSheet({ order }:{ order: any }) {
@@ -50,7 +49,7 @@ export function OrderSheet({ order }:{ order: any }) {
       </SheetTrigger>
       <SheetContent>
         <SheetHeader>
-          <SheetTitle>Order</SheetTitle>
+          <SheetTitle className="text-xl py-1 mb-8 border-b-2 border-gray-200">Order</SheetTitle>
           <SheetDescription>
             {
               order.id
@@ -59,7 +58,8 @@ export function OrderSheet({ order }:{ order: any }) {
             <ul className="max-w-md divide-y divide-gray-200 dark:divide-gray-700">
             {
               cart.map((product) => {
-                const photo = product.item.photo[0]
+                const item = product.item
+                const photo = item.photo[0]
 
                 return (
                   <li key={ product.id } className="pb-3 sm:pb-4">
@@ -69,7 +69,7 @@ export function OrderSheet({ order }:{ order: any }) {
                       </div>
                       <div className="flex-1 min-w-0">
                         <p className="text-sm font-medium text-gray-900 truncate dark:text-white">
-                          { product.item.name }
+                          { item.name }
                         </p>
                         <p className="text-sm text-gray-500 truncate dark:text-gray-400">
                           { product.qty }
@@ -84,8 +84,6 @@ export function OrderSheet({ order }:{ order: any }) {
               })
             }
             </ul>
-
-
           </SheetDescription>
         </SheetHeader>
       </SheetContent>
